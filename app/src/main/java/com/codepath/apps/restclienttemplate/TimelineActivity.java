@@ -57,12 +57,13 @@ public class TimelineActivity extends AppCompatActivity {
                         Tweet tweet = Tweet.fromJson(jsonObject);
                         // Add the tweet into our data source
                         tweets.add(tweet);
+                        adaptor.notifyItemInserted(tweets.size() - 1);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
                 // Notify adapter
-                adaptor.notifyItemInserted(tweets.size() - 1);
+
             }
 
             @Override

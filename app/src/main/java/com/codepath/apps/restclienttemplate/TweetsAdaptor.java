@@ -3,6 +3,7 @@ package com.codepath.apps.restclienttemplate;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,9 +37,12 @@ public class TweetsAdaptor extends RecyclerView.Adapter<TweetsAdaptor.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         Tweet tweet = tweets.get(i);
-        viewHolder.tvScreenName.setText(tweet.user.screenName);
-        viewHolder.tvBody.setText(tweet.body);
-        Glide.with(context).load(tweet.user.profileImageUrl).into(viewHolder.ivProfileImage);
+        viewHolder.tvScreenName.setText(tweet.getUser().getScreenName());
+        viewHolder.tvBody.setText(tweet.getBody());
+        Log.d("Profile_image", "inside bind " + tweet.getUser().getProfileImageUrl());
+        Glide.with(context).load(tweet.getUser().getProfileImageUrl()).into(viewHolder.ivProfileImage);
+        Log.d("Profile_image", "Should've displayed image " + tweet.getUser().getProfileImageUrl());
+
     }
 
     @Override
@@ -55,7 +59,7 @@ public class TweetsAdaptor extends RecyclerView.Adapter<TweetsAdaptor.ViewHolder
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            ivProfileImage = itemView.findViewById(R.id.ivProfilePicture);
+            ivProfileImage = itemView.findViewById(R.id.ivProfileImage);
             tvScreenName = itemView.findViewById(R.id.tvScreenName);
             tvBody = itemView.findViewById(R.id.tvBody);
 

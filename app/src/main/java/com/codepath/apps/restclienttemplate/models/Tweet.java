@@ -5,10 +5,10 @@ import org.json.JSONObject;
 
 public class Tweet {
 
-    public String body;
-    public long uid;
-    public String createdAt;
-    public User user;
+    private String body;
+    private long uid;
+    private String createdAt;
+    private User user;
 
     public static Tweet fromJson(JSONObject jsonObject) throws JSONException {
         Tweet tweet = new Tweet();
@@ -17,5 +17,21 @@ public class Tweet {
         tweet.createdAt = jsonObject.getString("created_at");
         tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
         return tweet;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public long getUid() {
+        return uid;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public User getUser() {
+        return user;
     }
 }

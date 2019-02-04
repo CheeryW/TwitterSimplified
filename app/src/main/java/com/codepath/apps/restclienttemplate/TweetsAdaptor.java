@@ -42,6 +42,7 @@ public class TweetsAdaptor extends RecyclerView.Adapter<TweetsAdaptor.ViewHolder
         Log.d("Profile_image", "inside bind " + tweet.getUser().getProfileImageUrl());
         Glide.with(context).load(tweet.getUser().getProfileImageUrl()).into(viewHolder.ivProfileImage);
         Log.d("Profile_image", "Should've displayed image " + tweet.getUser().getProfileImageUrl());
+        viewHolder.tvTime.setText(tweet.getRelativeTimeAgo(tweet.getCreatedAt()));
 
     }
 
@@ -62,19 +63,20 @@ public class TweetsAdaptor extends RecyclerView.Adapter<TweetsAdaptor.ViewHolder
         notifyDataSetChanged();
     }
 
-    // Define the Viewholder
+    // Define the ViewHolder
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         public ImageView ivProfileImage;
         public TextView tvScreenName;
         public TextView tvBody;
+        public TextView tvTime;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ivProfileImage = itemView.findViewById(R.id.ivProfileImage);
             tvScreenName = itemView.findViewById(R.id.tvScreenName);
             tvBody = itemView.findViewById(R.id.tvBody);
-
+            tvTime = itemView.findViewById(R.id.tvTime);
         }
     }
 }

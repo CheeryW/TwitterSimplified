@@ -49,7 +49,7 @@ public class TwitterClient extends OAuthBaseClient {
 
 	// METHODS for different API endpoints here
 	public void getTwitterTimeline(AsyncHttpResponseHandler handler) {
-		Log.d("Fatal", "Insied getInterestingnessList");
+		Log.d("API call", "Inside getTwitterTimeline");
 		String apiUrl = getApiUrl("statuses/home_timeline.json");
 		// Can specify query string params directly or through RequestParams.
 		RequestParams params = new RequestParams();
@@ -60,13 +60,12 @@ public class TwitterClient extends OAuthBaseClient {
 
     // TODO: change its content to posting tweet function
 	public void composeTweet(String tweetContent, AsyncHttpResponseHandler handler) {
-        Log.d("Fatal", "Insied getInterestingnessList");
-        String apiUrl = getApiUrl("statuses/home_timeline.json");
+        Log.d("API call", "Inside composeTweet");
+        String apiUrl = getApiUrl("statuses/update.json");
         // Can specify query string params directly or through RequestParams.
         RequestParams params = new RequestParams();
-        params.put("count", 25);
-        params.put("since_id", 1);
-        client.get(apiUrl, params, handler);
+        params.put("status", tweetContent);
+        client.post(apiUrl, params, handler);
     }
 
 	/* 1. Define the endpoint URL with getApiUrl and pass a relative path to the endpoint

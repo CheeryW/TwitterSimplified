@@ -3,10 +3,13 @@ package com.codepath.apps.restclienttemplate;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.codepath.apps.restclienttemplate.models.Tweet;
@@ -25,6 +28,7 @@ public class ComposeActivity extends AppCompatActivity {
     private EditText etCompose;
     private Button btnTweet;
     private TwitterClient client;
+    private TextView tvCharCnt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +38,7 @@ public class ComposeActivity extends AppCompatActivity {
         client = TwitterApp.getRestClient(this);
         etCompose = findViewById(R.id.etCompose);
         btnTweet = findViewById(R.id.btnTweet);
+        tvCharCnt = findViewById(R.id.tvCharCnt);
 
         // Set click listener on button
         btnTweet.setOnClickListener(new View.OnClickListener() {
@@ -73,6 +78,22 @@ public class ComposeActivity extends AppCompatActivity {
                         Log.e("TwitterClient", "Failed to post tweet: " + responseString);
                     }
                 });
+            }
+        });
+
+        etCompose.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                int chNum = MAX_TWEET_LENGTH - etCompose.getText().length();
+                if(chNum < 0) chNum = 0;
+                // display the number of characters user can still put into the tweet
+                tvCharCnt.setText(String.format(getString(R.string.char_count), chNum));
             }
         });
 
